@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToMany,
   OneToMany,
@@ -27,6 +28,16 @@ class Subreddit {
 
   @OneToMany((type) => Post, (post) => post.subreddit)
   posts?: Post[];
+
+  @CreateDateColumn({
+    type: 'timestamp',
+  })
+  createdAt!: Date;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+  })
+  updatedAt!: Date;
 }
 
 export { Subreddit };
