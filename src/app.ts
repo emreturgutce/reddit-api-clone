@@ -5,9 +5,6 @@ import morgan from 'morgan';
 import { errorHandler } from './middlewares/error-handler';
 import { notFound } from './middlewares/not-found';
 import cookieSession from 'cookie-session';
-import { passportSignup } from './middlewares/passport-signup';
-import { passportJwt } from './middlewares/passport-jwt';
-import { passportLogin } from './middlewares/passport-login';
 
 const app = express();
 
