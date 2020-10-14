@@ -14,6 +14,7 @@ import { Post } from './post';
 import { Subreddit } from './subreddit';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import createHttpError from 'http-errors';
 
 @Entity()
 class User extends BaseEntity {
@@ -64,6 +65,16 @@ class User extends BaseEntity {
   @BeforeUpdate()
   async generateAuthToken() {
     return (this.token = jwt.sign({ id: this.id }, process.env.JWT_KEY!));
+  }
+
+  async verifyAuthToken(attempt: string): Promise<Boolean> {
+    return new Promise((resolve, reject) => {
+      jwt.verify(attempt, process.env.JWT_SECRET!, (err, decoded) => {
+        if (err) throw new createHttpError.Unauthorized();
+
+        return decoded ? resolve(true) : reject(false);
+      });
+    });
   }
 
   async deleteAuthToken() {
