@@ -40,6 +40,7 @@
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
         "pg": "^8.4.1",
-        "sequelize": "^6.3.5"
+        "sequelize": "^6.3.5",
+        "sqlite": "^4.0.15"
     }
 }
