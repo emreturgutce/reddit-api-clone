@@ -6,6 +6,8 @@
     "entities": ["src/models/**/*.ts"],
     "migrations": ["src/migration/**/*.ts"],
     "subscribers": ["src/subscriber/**/*.ts"],
+    "seeds": ["src/seeds/**/*.ts"],
+    "factories": ["src/factories/**/*.ts"],
     "cli": {
         "entitiesDir": "src/models",
         "migrationsDir": "src/migration",
