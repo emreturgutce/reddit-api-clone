@@ -21,6 +21,8 @@ passport.use(
         user.email = email;
         user.password = password;
 
+        await connection.manager.save(user);
+
         const token = await user.generateAuthToken();
 
         await connection.manager.save(user);
@@ -48,6 +50,8 @@ passport.use(
         if (!user?.comparePassword(password))
           throw new createHttpError.BadRequest('Poor credentials');
 
+        await connection.manager.save(user);
+
         const token = await user.generateAuthToken();
 
         await connection.manager.save(user);
@@ -67,9 +71,10 @@ passport.use(
       secretOrKey: process.env.JWT_SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
-    async (id, done) => {
+    async (req, done) => {
       try {
-        const user = await User.findOne(id);
+        console.log(req);
+        const user = await User.findOne();
 
         done(null, user);
       } catch (err) {
