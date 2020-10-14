@@ -30,8 +30,8 @@ class User extends BaseEntity {
   @Column({ select: false })
   password!: string;
 
-  @Column({ select: false })
-  private token: string | undefined;
+  @Column({ select: false, nullable: true })
+  token?: string;
 
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
@@ -64,17 +64,7 @@ class User extends BaseEntity {
 
   @BeforeUpdate()
   async generateAuthToken() {
-    return (this.token = jwt.sign({ id: this.id }, process.env.JWT_KEY!));
-  }
-
-  async verifyAuthToken(attempt: string): Promise<Boolean> {
-    return new Promise((resolve, reject) => {
-      jwt.verify(attempt, process.env.JWT_SECRET!, (err, decoded) => {
-        if (err) throw new createHttpError.Unauthorized();
-
-        return decoded ? resolve(true) : reject(false);
-      });
-    });
+    return (this.token = jwt.sign({ id: this.id }, process.env.JWT_SECRET!));
   }
 
   async deleteAuthToken() {
