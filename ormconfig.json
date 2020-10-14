@@ -1,6 +1,10 @@
 {
-    "type": "sqlite",
-    "database": "database.sqlite",
+    "type": "postgres",
+    "host": "localhost",
+    "port": "5432",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "reddit_api_clone",
     "synchronize": true,
     "logging": true,
     "entities": ["src/models/**/*.ts"],
