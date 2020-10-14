@@ -19,7 +19,7 @@ class Subreddit {
   @Column()
   description!: string;
 
-  @Column({ type: 'blob', nullable: true })
+  @Column({ type: 'bytea', nullable: true })
   image?: string;
 
   @ManyToMany((type) => User, (user) => user.subreddits)

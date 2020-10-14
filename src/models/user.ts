@@ -22,7 +22,7 @@ class User extends BaseEntity {
   @Column({ unique: true })
   email!: string;
 
-  @Column({ type: 'blob', nullable: true })
+  @Column({ type: 'bytea', nullable: true })
   avatar?: string;
 
   @ManyToMany((type) => Subreddit, (subreddit) => subreddit.users)
@@ -33,12 +33,12 @@ class User extends BaseEntity {
   posts?: Post[];
 
   @CreateDateColumn({
-    type: 'datetime',
+    type: 'timestamp',
   })
   createdAt!: Date;
 
   @CreateDateColumn({
-    type: 'datetime',
+    type: 'timestamp',
   })
   updatedAt!: Date;
 }
