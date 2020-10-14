@@ -1,5 +1,6 @@
 import {
   BaseEntity,
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,6 +11,7 @@ import {
 } from 'typeorm';
 import { Post } from './post';
 import { Subreddit } from './subreddit';
+import bcrypt from 'bcryptjs';
 
 @Entity()
 class User extends BaseEntity {
@@ -21,6 +23,9 @@ class User extends BaseEntity {
 
   @Column({ unique: true })
   email!: string;
+
+  @Column({ select: false })
+  password!: string;
 
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
@@ -41,6 +46,15 @@ class User extends BaseEntity {
     type: 'timestamp',
   })
   updatedAt!: Date;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+
+  async comparePassword(attempt: string): Promise<Boolean> {
+    return await bcrypt.compare(attempt, this.password);
+  }
 }
 
 export { User };
