@@ -77,8 +77,7 @@ passport.use(
     },
     async (req, done) => {
       try {
-        console.log(req);
-        const user = await User.findOne();
+        const user = await User.findOne(req.id);
 
         done(null, user);
       } catch (err) {
