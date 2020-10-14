@@ -10,7 +10,6 @@
         "dev": "ts-node-dev src/index.ts"
     },
     "devDependencies": {
-        "@types/bluebird": "^3.5.32",
         "@types/cors": "^2.8.8",
         "@types/dotenv": "^8.2.0",
         "@types/express": "^4.17.8",
@@ -20,9 +19,6 @@
         "@types/passport": "^1.0.4",
         "@types/passport-jwt": "^3.0.3",
         "@types/passport-local": "^1.0.33",
-        "@types/pg": "^7.14.5",
-        "@types/sequelize": "^4.28.9",
-        "@types/validator": "^13.1.0",
         "@typescript-eslint/eslint-plugin": "^4.4.1",
         "eslint": "^5.16.0",
         "eslint-config-airbnb-base": "^14.2.0",
@@ -43,8 +39,7 @@
         "passport-local": "^1.0.0",
         "pg": "^8.4.1",
         "reflect-metadata": "^0.1.13",
-        "sequelize": "^6.3.5",
-        "sequelize-typescript": "^1.1.0",
-        "sqlite": "^4.0.15"
+        "sqlite": "^4.0.15",
+        "typeorm": "^0.2.28"
     }
 }
