@@ -16,6 +16,9 @@
         "@types/helmet": "^0.0.48",
         "@types/http-errors": "^1.8.0",
         "@types/morgan": "^1.9.1",
+        "@types/passport": "^1.0.4",
+        "@types/passport-jwt": "^3.0.3",
+        "@types/passport-local": "^1.0.33",
         "@typescript-eslint/eslint-plugin": "^4.4.1",
         "eslint": "^5.16.0",
         "eslint-config-airbnb-base": "^14.2.0",
@@ -30,6 +33,9 @@
         "express": "^4.17.1",
         "helmet": "^4.1.1",
         "http-errors": "^1.8.0",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "passport": "^0.4.1",
+        "passport-jwt": "^4.0.0",
+        "passport-local": "^1.0.0"
     }
 }
