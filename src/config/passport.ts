@@ -1,6 +1,9 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import { User } from '../models/user';
+import { connection } from './database';
+import createHttpError from 'http-errors';
 
 passport.use(
   'signup',
@@ -11,7 +14,21 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      // ! TODO Implement after creating models
+      const { username } = req.body;
+      try {
+        const user = new User();
+        user.username = username;
+        user.email = email;
+        user.password = password;
+
+        const token = await user.generateAuthToken();
+
+        await connection.manager.save(user);
+
+        done(null, { user, token });
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
@@ -25,7 +42,20 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      // ! TODO Implement after creating models
+      try {
+        const user = await User.findOne({ where: { email } });
+
+        if (!user?.comparePassword(password))
+          throw new createHttpError.BadRequest('Poor credentials');
+
+        const token = await user.generateAuthToken();
+
+        await connection.manager.save(user);
+
+        done(null, { user, token });
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
@@ -38,7 +68,13 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (id, done) => {
-      // ! TODO Implement after creating models
+      try {
+        const user = await User.findOne(id);
+
+        done(null, user);
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
