@@ -5,9 +5,9 @@ import morgan from 'morgan';
 import { errorHandler } from './middlewares/error-handler';
 import { notFound } from './middlewares/not-found';
 import cookieSession from 'cookie-session';
-import { indexRouter } from './routes';
+import { indexRouter } from './routes/index';
 import { signUpRouter } from './routes/signup';
-import { loginRouter } from './routes/signin';
+import { loginRouter } from './routes/login';
 
 const app = express();
 
