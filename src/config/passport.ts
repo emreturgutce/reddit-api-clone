@@ -27,6 +27,8 @@ passport.use(
 
         await connection.manager.save(user);
 
+        req.session!.token = token;
+
         done(null, { user, token });
       } catch (err) {
         done(err);
@@ -56,6 +58,8 @@ passport.use(
 
         await connection.manager.save(user);
 
+        req.session!.token = token;
+
         done(null, { user, token });
       } catch (err) {
         done(err);
@@ -69,7 +73,7 @@ passport.use(
   new JWTStrategy(
     {
       secretOrKey: process.env.JWT_SECRET,
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([(req) => req.session!.token]),
     },
     async (req, done) => {
       try {
