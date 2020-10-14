@@ -1,6 +1,7 @@
 import {
   BaseEntity,
   BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -12,6 +13,7 @@ import {
 import { Post } from './post';
 import { Subreddit } from './subreddit';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 @Entity()
 class User extends BaseEntity {
@@ -26,6 +28,9 @@ class User extends BaseEntity {
 
   @Column({ select: false })
   password!: string;
+
+  @Column({ select: false })
+  private token: string | undefined;
 
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
@@ -54,6 +59,15 @@ class User extends BaseEntity {
 
   async comparePassword(attempt: string): Promise<Boolean> {
     return await bcrypt.compare(attempt, this.password);
+  }
+
+  @BeforeUpdate()
+  async generateAuthToken() {
+    return (this.token = jwt.sign({ id: this.id }, process.env.JWT_KEY!));
+  }
+
+  async deleteAuthToken() {
+    this.token = undefined;
   }
 }
 
