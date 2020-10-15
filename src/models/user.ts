@@ -1,7 +1,6 @@
 import {
   BaseEntity,
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -26,7 +25,7 @@ class User extends BaseEntity {
   @Column({ unique: true })
   email!: string;
 
-  @Column({ select: false })
+  @Column()
   password!: string;
 
   @Column({ select: false, nullable: true })
@@ -57,11 +56,11 @@ class User extends BaseEntity {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  async comparePassword(attempt: string): Promise<Boolean> {
-    return bcrypt.compare(attempt, this.password);
+  async comparePassword(attempt: string) {
+    const response = await bcrypt.compare(attempt, this.password);
+    return response;
   }
 
-  @BeforeUpdate()
   async generateAuthToken() {
     this.token = jwt.sign({ id: this.id }, process.env.JWT_SECRET!);
     return this.token;
