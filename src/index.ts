@@ -1,10 +1,14 @@
 import 'reflect-metadata';
+import 'colors';
 import dotenv from 'dotenv';
 dotenv.config();
-import 'colors';
-import './config/database';
+import { connection } from './config/database';
 
 console.clear();
+
+(async () => {
+  await connection.create();
+})().catch((err) => console.error(err));
 
 import { app } from './app';
 
