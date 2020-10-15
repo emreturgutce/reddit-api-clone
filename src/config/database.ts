@@ -1,9 +1,28 @@
-import { createConnection, Connection } from 'typeorm';
+import { createConnection, getConnection } from 'typeorm';
 
-let connection: Connection;
+const connection = {
+  async create() {
+    console.log(process.env.NODE_ENV);
+    return await createConnection();
+  },
 
-(async () => {
-  connection = await createConnection();
-})().catch((err) => console.error(err));
+  get() {
+    return getConnection();
+  },
+
+  async close() {
+    await getConnection().close();
+  },
+
+  async clear() {
+    const connection = getConnection();
+    const entities = connection.entityMetadatas;
+
+    entities.forEach(async (entity) => {
+      const repository = connection.getRepository(entity.name);
+      await repository.query(`DELETE FROM ${entity.tableName}`);
+    });
+  },
+};
 
 export { connection };
