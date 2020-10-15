@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction, Router } from 'express';
-import { passportSignup } from '../middlewares/passport-signup';
+import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
+import { passportSignup } from '../middlewares/passport-signup';
 import { validateRequest } from '../middlewares/validate-request';
 
 const router = Router();
@@ -22,7 +22,7 @@ router.post(
       message: 'User created',
       user: request.user,
     });
-  }
+  },
 );
 
 export { router as signUpRouter };
