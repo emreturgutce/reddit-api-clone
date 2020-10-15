@@ -1,8 +1,8 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
-import { User } from '../models/user';
 import { connection } from './database';
+import { User } from '../models/user';
 import createHttpError from 'http-errors';
 
 passport.use(
@@ -21,11 +21,11 @@ passport.use(
         user.email = email;
         user.password = password;
 
-        await connection.manager.save(user);
+        await connection.get().manager.save(user);
 
         const token = await user.generateAuthToken();
 
-        await connection.manager.save(user);
+        await connection.get().manager.save(user);
 
         req.session!.token = token;
 
@@ -52,11 +52,11 @@ passport.use(
         if (!user?.comparePassword(password))
           throw new createHttpError.BadRequest('Poor credentials');
 
-        await connection.manager.save(user);
+        await connection.get().manager.save(user);
 
         const token = await user.generateAuthToken();
 
-        await connection.manager.save(user);
+        await connection.get().manager.save(user);
 
         req.session!.token = token;
 
@@ -72,7 +72,10 @@ passport.use(
   'jwt',
   new JWTStrategy(
     {
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey:
+        process.env.NODE_ENV === 'development'
+          ? process.env.JWT_SECRET
+          : 'test',
       jwtFromRequest: ExtractJwt.fromExtractors([(req) => req.session!.token]),
     },
     async (req, done) => {
