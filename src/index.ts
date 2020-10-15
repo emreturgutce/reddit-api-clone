@@ -10,7 +10,9 @@ console.clear();
 
 (async () => {
   await connection.create();
-})().catch((err) => console.error(err));
+})()
+  .then(() => console.log(`Connected to PostgreSQL Database`.blue.bold))
+  .catch((err) => console.error(err));
 
 import { app } from './app';
 
