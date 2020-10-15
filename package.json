@@ -11,6 +11,13 @@
         "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
         "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
     },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "setupFilesAfterEnv": [
+            "./src/test/setup.ts"
+        ]
+    },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",
         "@types/bluebird": "^3.5.32",
