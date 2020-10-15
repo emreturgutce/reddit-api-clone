@@ -17,11 +17,15 @@ beforeAll(async () => {
   console.log(`Connected To PostgreSQL Test Database`.blue.bold);
 });
 
+beforeEach(async () => {
+  await connection.clear();
+});
+
 afterAll(async () => {
   await connection.close();
 });
 
-beforeEach(async () => {
+afterEach(async () => {
   await connection.clear();
 });
 
