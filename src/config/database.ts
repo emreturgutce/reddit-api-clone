@@ -2,7 +2,6 @@ import { createConnection, getConnection } from 'typeorm';
 
 const connection = {
   async create() {
-    console.log(process.env.NODE_ENV);
     return await createConnection();
   },
 

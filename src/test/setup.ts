@@ -26,7 +26,6 @@ beforeEach(async () => {
 });
 
 global.signup = async () => {
-  console.debug('TEST');
   const email = 'test@test.com';
   const password = 'password';
   const username = 'test';
