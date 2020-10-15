@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
 import { passportLogin } from '../middlewares/passport-login';
 import { validateRequest } from '../middlewares/validate-request';
@@ -21,7 +21,7 @@ router.post(
       message: 'Logged in',
       user: request.user,
     });
-  }
+  },
 );
 
 export { router as loginRouter };

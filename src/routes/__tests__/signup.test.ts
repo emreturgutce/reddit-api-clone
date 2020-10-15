@@ -27,7 +27,7 @@ describe('Signup Route Handler Test Suite', () => {
       .expect(400);
 
     expect(response.body.message).toEqual(
-      'Password must be between 4 and 20 characters'
+      'Password must be between 4 and 20 characters',
     );
   });
 
@@ -56,12 +56,12 @@ describe('Signup Route Handler Test Suite', () => {
 
     expect(response.body.message).toContain('Username must be provided');
     expect(response.body.message).toContain(
-      'Password must be between 4 and 20 characters'
+      'Password must be between 4 and 20 characters',
     );
   });
 
   it('Should return 201 for valid inputs', async () => {
-    const response = await request(app)
+    await request(app)
       .post('/signup')
       .send({
         username: 'test',
@@ -90,7 +90,7 @@ describe('Signup Route Handler Test Suite', () => {
       .expect(400);
 
     expect(response.body.message).toEqual(
-      'duplicate key value violates unique constraint'
+      'duplicate key value violates unique constraint',
     );
   });
 
