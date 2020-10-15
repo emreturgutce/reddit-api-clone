@@ -22,6 +22,7 @@
     "quotes": "off",
     "import/no-extraneous-dependencies": "off",
     "import/first": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "newline-per-chained-call": "off"
   }
 }
