@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { passportJwt } from '../middlewares/passport-jwt';
 
 const router = Router();
