@@ -49,7 +49,7 @@ passport.use(
       try {
         const user = await User.findOne({ where: { email } });
 
-        if (!user?.comparePassword(password)) {
+        if (!user || !user.comparePassword(password)) {
           throw new createHttpError.BadRequest('Poor credentials');
         }
 
