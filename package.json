@@ -8,6 +8,7 @@
     "scripts": {
         "start": "ts-node src/index.ts",
         "dev": "ts-node-dev src/index.ts",
+        "test": "jest --watchAll --no-cache",
         "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
         "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
     },
