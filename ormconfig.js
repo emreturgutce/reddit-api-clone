@@ -1,9 +1,9 @@
 module.exports = {
     type: 'postgres',
-    host: 'localhost',
-    port: '5432',
-    username: 'postgres',
-    password: 'postgres',
+    host: process.env.PG_HOST,
+    port: process.env.PG_PORT,
+    username: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
     database: process.env.NODE_ENV === 'development' ?
         'reddit_api_clone' :
         process.env.NODE_ENV === 'test' ?
