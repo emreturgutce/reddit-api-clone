@@ -5,17 +5,18 @@ import createHttpError from 'http-errors';
 export const validateRequest = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const errors = validationResult(req);
 
-  if (!errors.isEmpty())
+  if (!errors.isEmpty()) {
     throw new createHttpError.BadRequest(
       errors
         .array()
         .map((err) => err.msg)
-        .toString()
+        .toString(),
     );
+  }
 
   next();
 };

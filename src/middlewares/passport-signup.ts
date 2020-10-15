@@ -4,7 +4,7 @@ import { passport } from '../config/passport';
 export const passportSignup = (
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   passport.authenticate('signup', { session: false })(request, response, next);
 };

@@ -1,9 +1,9 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import createHttpError from 'http-errors';
 import { connection } from './database';
 import { User } from '../models/user';
-import createHttpError from 'http-errors';
 
 passport.use(
   'signup',
@@ -33,8 +33,8 @@ passport.use(
       } catch (err) {
         done(err);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -49,8 +49,9 @@ passport.use(
       try {
         const user = await User.findOne({ where: { email } });
 
-        if (!user?.comparePassword(password))
+        if (!user?.comparePassword(password)) {
           throw new createHttpError.BadRequest('Poor credentials');
+        }
 
         await connection.get().manager.save(user);
 
@@ -64,8 +65,8 @@ passport.use(
       } catch (err) {
         done(err);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -86,8 +87,8 @@ passport.use(
       } catch (err) {
         done(err);
       }
-    }
-  )
+    },
+  ),
 );
 
 export { passport };

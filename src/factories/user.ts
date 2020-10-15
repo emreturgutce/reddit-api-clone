@@ -1,6 +1,6 @@
 import { define, factory } from 'typeorm-seeding';
-import { User } from '../models/user';
 import Faker from 'faker';
+import { User } from '../models/user';
 import { Subreddit } from '../models/subreddit';
 
 define(User, (faker: typeof Faker) => {

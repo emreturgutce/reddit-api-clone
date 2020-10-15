@@ -1,7 +1,9 @@
 import 'reflect-metadata';
 import 'colors';
 import dotenv from 'dotenv';
+
 dotenv.config();
+
 import { connection } from './config/database';
 
 console.clear();

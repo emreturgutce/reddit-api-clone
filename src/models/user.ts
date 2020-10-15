@@ -10,11 +10,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Post } from './post';
-import { Subreddit } from './subreddit';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import createHttpError from 'http-errors';
+import { Post } from './post';
+import { Subreddit } from './subreddit';
 
 @Entity()
 class User extends BaseEntity {
@@ -36,11 +35,11 @@ class User extends BaseEntity {
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
 
-  @ManyToMany((type) => Subreddit, (subreddit) => subreddit.users)
+  @ManyToMany(() => Subreddit, (subreddit) => subreddit.users)
   @JoinTable()
   subreddits?: Subreddit[];
 
-  @OneToMany((type) => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.user)
   posts?: Post[];
 
   @CreateDateColumn({
@@ -59,12 +58,13 @@ class User extends BaseEntity {
   }
 
   async comparePassword(attempt: string): Promise<Boolean> {
-    return await bcrypt.compare(attempt, this.password);
+    return bcrypt.compare(attempt, this.password);
   }
 
   @BeforeUpdate()
   async generateAuthToken() {
-    return (this.token = jwt.sign({ id: this.id }, process.env.JWT_SECRET!));
+    this.token = jwt.sign({ id: this.id }, process.env.JWT_SECRET!);
+    return this.token;
   }
 
   async deleteAuthToken() {

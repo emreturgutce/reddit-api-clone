@@ -1,6 +1,6 @@
 import 'colors';
-import { app } from '../app';
 import request from 'supertest';
+import { app } from '../app';
 import { connection } from '../config/database';
 
 declare global {

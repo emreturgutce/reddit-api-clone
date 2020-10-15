@@ -2,7 +2,7 @@ import { createConnection, getConnection } from 'typeorm';
 
 const connection = {
   async create() {
-    return await createConnection();
+    return createConnection();
   },
 
   get() {
@@ -16,11 +16,11 @@ const connection = {
   },
 
   async clear() {
-    const connection = getConnection();
-    const entities = connection.entityMetadatas;
+    const conn = getConnection();
+    const entities = conn.entityMetadatas;
 
     entities.forEach(async (entity) => {
-      const repository = connection.getRepository(entity.name);
+      const repository = conn.getRepository(entity.name);
       await repository.query(`DELETE FROM "${entity.tableName}";`);
     });
   },

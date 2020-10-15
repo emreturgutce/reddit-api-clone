@@ -1,5 +1,4 @@
 import { define } from 'typeorm-seeding';
-import { User } from '../models/user';
 import Faker from 'faker';
 import { Subreddit } from '../models/subreddit';
 

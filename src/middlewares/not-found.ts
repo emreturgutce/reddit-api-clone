@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { NotFound } from 'http-errors';
+import createHttpError from 'http-errors';
 
 export const notFound = (
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  throw new NotFound('Route not found');
+  throw new createHttpError.NotFound('Route not found');
 };

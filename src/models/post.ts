@@ -20,11 +20,11 @@ class Post {
   @Column()
   body!: string;
 
-  @ManyToOne((type) => Subreddit, (subreddit) => subreddit.posts)
+  @ManyToOne(() => Subreddit, (subreddit) => subreddit.posts)
   @JoinTable()
   subreddit!: Subreddit;
 
-  @ManyToOne((type) => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.posts)
   @JoinTable()
   user!: User;
 

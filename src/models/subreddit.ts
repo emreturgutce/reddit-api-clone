@@ -23,10 +23,10 @@ class Subreddit {
   @Column({ type: 'bytea', nullable: true })
   image?: string;
 
-  @ManyToMany((type) => User, (user) => user.subreddits)
+  @ManyToMany(() => User, (user) => user.subreddits)
   users?: User[];
 
-  @OneToMany((type) => Post, (post) => post.subreddit)
+  @OneToMany(() => Post, (post) => post.subreddit)
   posts?: Post[];
 
   @CreateDateColumn({

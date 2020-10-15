@@ -4,7 +4,7 @@ import { passport } from '../config/passport';
 export const passportJwt = (
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   passport.authenticate('jwt', { session: false })(request, response, next);
 };
