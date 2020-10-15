@@ -108,3 +108,14 @@ it('Should be same values in database', async () => {
   expect(user!.username).toEqual(username);
   expect(user!.email).toEqual(email);
 });
+
+it('Should return cookie', async () => {
+  const response = await request(app).post('/signup').send({
+    username: 'test',
+    email: 'test@example.com',
+    password: 'test',
+  });
+
+  expect(response.get('Set-Cookie')[0]).toBeDefined();
+  expect(response.get('Set-Cookie')[0]).toMatch(/auth_token=.*/);
+});
