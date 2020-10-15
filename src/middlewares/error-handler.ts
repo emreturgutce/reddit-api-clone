@@ -10,5 +10,5 @@ export const errorHandler = (
   if (error instanceof HttpError)
     return response.status(error.statusCode).json({ message: error.message });
 
-  response.status(400).json({ message: 'Something went wrong.' });
+  response.status(500).json({ message: 'Something went wrong.' });
 };
