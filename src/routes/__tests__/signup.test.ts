@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
+import { User } from '../../models/user';
 
 it('Should return 400 Bad Request for invalid email address', async () => {
   const response = await request(app)
@@ -72,14 +73,11 @@ it('Should return 201 for valid inputs', async () => {
 it('Should return 400 for not unique email', async () => {
   const email = 'test@test.com';
 
-  await request(app)
-    .post('/signup')
-    .send({
-      username: 'test',
-      email,
-      password: 'test',
-    })
-    .expect(201);
+  await request(app).post('/signup').send({
+    username: 'test',
+    email,
+    password: 'test',
+  });
 
   const response = await request(app)
     .post('/signup')
@@ -93,4 +91,20 @@ it('Should return 400 for not unique email', async () => {
   expect(response.body.message).toEqual(
     'duplicate key value violates unique constraint'
   );
+});
+
+it('Should be same values in database', async () => {
+  const username = 'test';
+  const email = 'test@example.com';
+
+  const response = await request(app).post('/signup').send({
+    username,
+    email,
+    password: 'test',
+  });
+
+  const user = await User.findOne(response.body.user.id);
+
+  expect(user!.username).toEqual(username);
+  expect(user!.email).toEqual(email);
 });
