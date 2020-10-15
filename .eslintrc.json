@@ -17,6 +17,11 @@
     "import/extensions": "off",
     "no-unused-vars": "warn",
     "import/no-unresolved": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-empty": "off",
+    "quotes": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/first": "off",
+    "no-nested-ternary": "off"
   }
 }
