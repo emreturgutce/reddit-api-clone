@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - postgres-db
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - JWT_SECRET=8ded9e0fc3767933d68442770258812e
+      - PG_HOST=postgres-db
+      - PG_PORT=5432
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres
+    volumes:
+      - node_modules
+      - .:/app
+  postgres-db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=reddit_api_clone
+    ports:
+      - "5432:5432"
