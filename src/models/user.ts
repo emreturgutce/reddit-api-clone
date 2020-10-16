@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   BeforeInsert,
   Column,
   CreateDateColumn,
@@ -34,11 +33,11 @@ class User {
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
 
-  @ManyToMany(() => Subreddit, (subreddit) => subreddit.users, { eager: true })
+  @ManyToMany(() => Subreddit, (subreddit) => subreddit.users)
   @JoinTable()
   subreddits?: Subreddit[];
 
-  @OneToMany(() => Post, (post) => post.user, { eager: true })
+  @OneToMany(() => Post, (post) => post.user)
   posts?: Post[];
 
   @CreateDateColumn({
