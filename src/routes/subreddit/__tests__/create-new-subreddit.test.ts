@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../../app';
 
 describe('Create New Subreddit Route Handler Test Suite', () => {
-  it('Should return 201 for invalid inputs', async () => {
+  it('Should return 201 for valid inputs', async () => {
     const name = 'NodeJS';
     const description = 'NodeJS subreddit description';
 
