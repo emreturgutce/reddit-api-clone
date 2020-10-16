@@ -5,13 +5,14 @@ import {
   Entity,
   ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Post } from './post';
 import { User } from './user';
 
 @Entity()
-class Subreddit extends BaseEntity {
+class Subreddit {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -29,6 +30,9 @@ class Subreddit extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.subreddit)
   posts?: Post[];
+
+  @OneToOne(() => User)
+  createdBy!: User;
 
   @CreateDateColumn({
     type: 'timestamp',
