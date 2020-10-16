@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -31,8 +30,8 @@ class Subreddit {
   @OneToMany(() => Post, (post) => post.subreddit)
   posts?: Post[];
 
-  @OneToOne(() => User)
-  createdBy!: User;
+  @OneToOne(() => User, (user) => user.id)
+  createdBy!: string;
 
   @CreateDateColumn({
     type: 'timestamp',
