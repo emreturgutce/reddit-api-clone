@@ -7,10 +7,13 @@
     "license": "MIT",
     "scripts": {
         "start": "ts-node src/index.ts",
-        "start:local": "docker run --name reddit-postgres-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=reddit_api_clone -p 5432:5432 -d postgres && ts-node src/index.ts",
+        "start:local": "npm run create:postgres-db && ts-node src/index.ts",
         "dev": "ts-node-dev src/index.ts",
+        "dev:local": "npm run create:postgres-db && ts-node-dev src/index.ts",
+        "create:postgres-db": "docker run --name reddit-postgres-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=reddit_api_clone -p 5432:5432 -d postgres",
         "build": "tsc",
-        "test": "jest --runInBand --watchAll --no-cache",
+        "create:test-postgres-db": "docker run --name reddit-postgres-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=reddit_api_clone_test -p 5432:5432 -d postgres",
+        "test": "npm run create:test-postgres-db && jest --runInBand --watchAll --no-cache",
         "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
         "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
     },
