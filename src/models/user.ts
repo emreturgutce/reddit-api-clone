@@ -66,7 +66,7 @@ class User {
   }
 
   async deleteAuthToken() {
-    this.token = undefined;
+    this.token = '';
   }
 }
 
