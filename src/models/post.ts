@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,7 +11,7 @@ import { Subreddit } from './subreddit';
 import { User } from './user';
 
 @Entity()
-class Post {
+class Post extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
