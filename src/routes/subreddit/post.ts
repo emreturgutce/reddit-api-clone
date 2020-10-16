@@ -1,8 +1,10 @@
 import { Router, Request, Response } from 'express';
+import { body } from 'express-validator';
 import createHttpError from 'http-errors';
 import { getRepository } from 'typeorm';
 import { connection } from '../../config/database';
 import { passportJwt } from '../../middlewares/passport-jwt';
+import { validateRequest } from '../../middlewares/validate-request';
 import { Post } from '../../models/post';
 import { Subreddit } from '../../models/subreddit';
 import { User } from '../../models/user';
@@ -12,6 +14,11 @@ const router = Router();
 router.post(
   '/r/:subredditName',
   passportJwt,
+  [
+    body('title').notEmpty().withMessage('Title field must be provided'),
+    body('body').notEmpty().withMessage('body field must be provided'),
+  ],
+  validateRequest,
   async (request: Request, response: Response) => {
     const { title, body } = request.body;
 
