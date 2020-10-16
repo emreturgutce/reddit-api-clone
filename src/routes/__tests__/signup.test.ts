@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { getRepository } from 'typeorm';
 import { app } from '../../app';
 import { User } from '../../models/user';
 
@@ -104,7 +105,7 @@ describe('Signup Route Handler Test Suite', () => {
       password: 'test',
     });
 
-    const user = await User.findOne(response.body.user.id);
+    const user = await getRepository(User).findOne(response.body.user.id);
 
     expect(user!.username).toEqual(username);
     expect(user!.email).toEqual(email);
