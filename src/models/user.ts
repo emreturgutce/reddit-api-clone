@@ -15,7 +15,7 @@ import { Post } from './post';
 import { Subreddit } from './subreddit';
 
 @Entity()
-class User extends BaseEntity {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -34,11 +34,11 @@ class User extends BaseEntity {
   @Column({ type: 'bytea', nullable: true })
   avatar?: string;
 
-  @ManyToMany(() => Subreddit, (subreddit) => subreddit.users)
+  @ManyToMany(() => Subreddit, (subreddit) => subreddit.users, { eager: true })
   @JoinTable()
   subreddits?: Subreddit[];
 
-  @OneToMany(() => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.user, { eager: true })
   posts?: Post[];
 
   @CreateDateColumn({
