@@ -9,6 +9,8 @@ import { notFound } from './middlewares/not-found';
 import { indexRouter } from './routes/index';
 import { signUpRouter } from './routes/signup';
 import { loginRouter } from './routes/login';
+import { getSubredditsRouter } from './routes/subreddit/get-subreddits';
+import { addSubredditRouter } from './routes/subreddit/add-subreddit';
 
 const app = express();
 
@@ -27,6 +29,8 @@ app.use(
 app.use(indexRouter);
 app.use(signUpRouter);
 app.use(loginRouter);
+app.use(getSubredditsRouter);
+app.use(addSubredditRouter);
 
 app.use(notFound);
 app.use(errorHandler);
