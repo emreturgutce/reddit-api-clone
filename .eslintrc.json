@@ -24,6 +24,7 @@
     "import/first": "off",
     "no-nested-ternary": "off",
     "newline-per-chained-call": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-shadow": "off"
   }
 }
