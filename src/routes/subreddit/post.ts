@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import createHttpError from 'http-errors';
 import { getRepository } from 'typeorm';
 import { connection } from '../../config/database';
 import { passportJwt } from '../../middlewares/passport-jwt';
@@ -14,10 +15,18 @@ router.post(
   async (request: Request, response: Response) => {
     const { title, body } = request.body;
 
-    const user = await getRepository(User).findOneOrFail(request.user!.id);
+    const user = await getRepository(User).findOneOrFail(request.user!.id, {
+      relations: ['subreddits'],
+    });
     const subreddit = await getRepository(Subreddit).findOneOrFail({
       where: { name: request.params.subredditName },
     });
+
+    if (!user.subreddits?.includes(subreddit)) {
+      throw new createHttpError.BadRequest(
+        'You must join the subreddit that you want to send post to',
+      );
+    }
 
     const post = new Post();
     post.title = title;
