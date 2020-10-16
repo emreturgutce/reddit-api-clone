@@ -1,9 +1,18 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import { getRepository } from 'typeorm';
 import createHttpError from 'http-errors';
 import { connection } from './database';
 import { User } from '../models/user';
+
+declare global {
+  namespace Express {
+    interface User {
+      id: string;
+    }
+  }
+}
 
 passport.use(
   'signup',
@@ -29,7 +38,7 @@ passport.use(
 
         req.session!.token = token;
 
-        done(null, { user, token });
+        done(null, { id: user.id });
       } catch (err) {
         done(err);
       }
@@ -47,7 +56,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        const user = await User.findOne({ where: { email } });
+        const user = await getRepository(User).findOne({ where: { email } });
 
         if (!user || !user.comparePassword(password)) {
           throw new createHttpError.BadRequest('Poor credentials');
@@ -61,7 +70,7 @@ passport.use(
 
         req.session!.token = token;
 
-        done(null, { user, token });
+        done(null, { id: user.id });
       } catch (err) {
         done(err);
       }
@@ -81,9 +90,7 @@ passport.use(
     },
     async (req, done) => {
       try {
-        const user = await User.findOne(req.id);
-
-        done(null, user);
+        done(null, { id: req.id });
       } catch (err) {
         done(err);
       }
