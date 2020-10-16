@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   OneToMany,
   OneToOne,
@@ -30,8 +31,9 @@ class Subreddit {
   @OneToMany(() => Post, (post) => post.subreddit)
   posts?: Post[];
 
-  @OneToOne(() => User, (user) => user.id)
-  createdBy!: string;
+  @ManyToMany(() => User, (user) => user.id)
+  @JoinTable()
+  createdBy!: User;
 
   @CreateDateColumn({
     type: 'timestamp',
