@@ -23,6 +23,7 @@
     "import/no-extraneous-dependencies": "off",
     "import/first": "off",
     "no-nested-ternary": "off",
-    "newline-per-chained-call": "off"
+    "newline-per-chained-call": "off",
+    "no-console": "off"
   }
 }
