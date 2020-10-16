@@ -13,6 +13,7 @@ import { getSubredditsRouter } from './routes/subreddit/get-subreddits';
 import { createNewSubredditRouter } from './routes/subreddit/create-new-subreddit';
 import { joinSubredditRouter } from './routes/subreddit/join-subreddit';
 import { logoutRouter } from './routes/logout';
+import { postRouter } from './routes/subreddit/post';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(loginRouter);
 app.use(getSubredditsRouter);
 app.use(createNewSubredditRouter);
 app.use(joinSubredditRouter);
+app.use(postRouter);
 app.use(logoutRouter);
 
 app.use(notFound);
