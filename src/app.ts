@@ -10,7 +10,9 @@ import { indexRouter } from './routes/index';
 import { signUpRouter } from './routes/signup';
 import { loginRouter } from './routes/login';
 import { getSubredditsRouter } from './routes/subreddit/get-subreddits';
-import { addSubredditRouter } from './routes/subreddit/add-subreddit';
+import { createNewSubredditRouter } from './routes/subreddit/create-new-subreddit';
+import { joinSubredditRouter } from './routes/subreddit/join-subreddit';
+import { logoutRouter } from './routes/logout';
 
 const app = express();
 
@@ -30,7 +32,9 @@ app.use(indexRouter);
 app.use(signUpRouter);
 app.use(loginRouter);
 app.use(getSubredditsRouter);
-app.use(addSubredditRouter);
+app.use(createNewSubredditRouter);
+app.use(joinSubredditRouter);
+app.use(logoutRouter);
 
 app.use(notFound);
 app.use(errorHandler);
