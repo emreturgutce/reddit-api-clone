@@ -13,14 +13,14 @@ router.post('/r', passportJwt, async (request: Request, response: Response) => {
 
   const user = await getRepository(User).findOneOrFail(userId);
 
-  const repository = new Subreddit();
-  repository.name = name;
-  repository.description = description;
-  repository.createdBy = user;
+  const subreddit = new Subreddit();
+  subreddit.name = name;
+  subreddit.description = description;
+  subreddit.createdBy = user;
 
-  await connection.get().manager.save(repository);
+  await connection.get().manager.save(subreddit);
 
-  return response.status(201).json(repository);
+  return response.status(201).json({ subreddit });
 });
 
 export { router as createNewSubredditRouter };
