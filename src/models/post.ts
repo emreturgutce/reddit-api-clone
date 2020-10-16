@@ -11,7 +11,7 @@ import { Subreddit } from './subreddit';
 import { User } from './user';
 
 @Entity()
-class Post extends BaseEntity {
+class Post {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
