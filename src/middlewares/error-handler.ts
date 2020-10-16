@@ -7,6 +7,7 @@ export const errorHandler = (
   response: Response,
   next: NextFunction,
 ) => {
+  console.error(error);
   if (error instanceof HttpError) {
     return response.status(error.statusCode).json({ message: error.message });
   }
@@ -17,5 +18,14 @@ export const errorHandler = (
       .json({ message: error.message.replace(/ ".*"/, '') });
   }
 
-  return response.status(500).json({ message: 'Something went wrong.' });
+  if (
+    error.name === 'EntityNotFound' &&
+    error.message.match(
+      /Could not find any entity of type "Subreddit" matching/,
+    )
+  ) {
+    return response.status(404).json({ message: 'Subreddit not found' });
+  }
+
+  return response.status(400).json({ message: 'Something went wrong.' });
 };
