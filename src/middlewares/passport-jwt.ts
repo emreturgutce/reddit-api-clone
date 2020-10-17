@@ -5,6 +5,4 @@ export const passportJwt = (
   request: Request,
   response: Response,
   next: NextFunction,
-) => {
-  passport.authenticate('jwt', { session: false })(request, response, next);
-};
+) => passport.authenticate('jwt', { session: false })(request, response, next);
