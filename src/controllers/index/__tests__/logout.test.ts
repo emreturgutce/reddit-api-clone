@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../../app';
+import { app } from '../../../app';
 
 describe('Logout Route Handler Test Suite', () => {
   it('Should return 200 for successful logout', async () => {

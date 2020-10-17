@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../../app';
+import { app } from '../../../app';
 
 describe('Login Route Handler Test Suite', () => {
   it('Should return 400 Bad Request for invalid email address', async () => {

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { getRepository } from 'typeorm';
-import { app } from '../../app';
-import { User } from '../../models/user';
+import { app } from '../../../app';
+import { User } from '../../../models/user';
 
 describe('Signup Route Handler Test Suite', () => {
   it('Should return 400 Bad Request for invalid email address', async () => {
