@@ -15,11 +15,13 @@ export const postRouteHandler = async (
   const user = await getRepository(User).findOneOrFail(request.user!.id, {
     relations: ['subreddits'],
   });
+
   const subreddit = await getRepository(Subreddit).findOneOrFail({
     where: { name: request.params.subredditName },
   });
 
-  if (!user.subreddits?.includes(subreddit)) {
+  // Checking if the subreddit that user wants to post to is inside of the user's subreddits
+  if (!user.subreddits?.map((s) => s.id).includes(subreddit.id)) {
     throw new createHttpError.BadRequest(
       'You must join the subreddit that you want to send post to',
     );
