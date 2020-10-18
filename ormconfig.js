@@ -10,7 +10,7 @@ module.exports = {
         'reddit_api_clone_test' :
         undefined,
     synchronize: true,
-    logging: process.env.NODE_ENV === 'developement',
+    logging: process.env.NODE_ENV === 'development',
     entities: ['src/models/**/*.ts'],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
