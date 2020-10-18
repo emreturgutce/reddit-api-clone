@@ -7,12 +7,14 @@ import { joinSubredditRouteHandler } from '../controllers/subreddit/join-subredd
 import { leaveSubredditRouteHandler } from '../controllers/subreddit/leave-subreddit';
 import { validatePost } from '../middlewares/validate-post';
 import { postRouteHandler } from '../controllers/subreddit/post';
+import { updateSubredditRouteHandler } from '../controllers/subreddit/update-subreddit';
 
 const router = Router();
 
 router.get('/', getSubredditsRouteHandler);
 router.post('/', validateCreateNewSubreddit, createNewSubredditRouteHandler);
 router.get('/all', getAllSubredditsRouteHandler);
+router.put('/:subredditName', updateSubredditRouteHandler);
 router.get('/:subredditName/join', joinSubredditRouteHandler);
 router.get('/:subredditName/leave', leaveSubredditRouteHandler);
 router.post('/:subredditName', validatePost, postRouteHandler);
