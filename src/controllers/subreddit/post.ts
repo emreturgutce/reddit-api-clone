@@ -33,7 +33,7 @@ export const postRouteHandler = async (
   post.user = user;
   post.subreddit = subreddit;
 
-  connection.get().manager.save(post);
+  await connection.get().manager.save(post);
 
   response.status(201).json({ post });
 };
