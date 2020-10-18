@@ -22,9 +22,11 @@ class Post {
   body!: string;
 
   @ManyToOne(() => Subreddit, (subreddit) => subreddit.posts)
+  @JoinTable()
   subreddit!: Subreddit;
 
   @ManyToOne(() => User, (user) => user.posts)
+  @JoinTable()
   user!: User;
 
   @CreateDateColumn({
