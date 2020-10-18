@@ -4,8 +4,8 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Post } from './post';
@@ -31,7 +31,7 @@ class Subreddit {
   @OneToMany(() => Post, (post) => post.subreddit)
   posts?: Post[];
 
-  @ManyToMany(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinTable()
   createdBy!: User;
 
