@@ -4,8 +4,9 @@ import { validateCreateNewSubreddit } from '../middlewares/validate-create-new-s
 import { createNewSubredditRouteHandler } from '../controllers/subreddit/create-new-subreddit';
 import { getAllSubredditsRouteHandler } from '../controllers/subreddit/get-all-subreddits';
 import { joinSubredditRouteHandler } from '../controllers/subreddit/join-subreddit';
-import { postRouteHandler } from '../controllers/subreddit/post';
+import { leaveSubredditRouteHandler } from '../controllers/subreddit/leave-subreddit';
 import { validatePost } from '../middlewares/validate-post';
+import { postRouteHandler } from '../controllers/subreddit/post';
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.get('/', getSubredditsRouteHandler);
 router.post('/', validateCreateNewSubreddit, createNewSubredditRouteHandler);
 router.get('/all', getAllSubredditsRouteHandler);
 router.get('/:subredditName/join', joinSubredditRouteHandler);
+router.get('/:subredditName/leave', leaveSubredditRouteHandler);
 router.post('/:subredditName', validatePost, postRouteHandler);
 
 export { router as subredditRouter };
