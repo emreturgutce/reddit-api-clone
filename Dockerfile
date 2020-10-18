@@ -6,7 +6,7 @@ COPY package.json .
 
 RUN npm install --only=prod
 
-RUN npm install -g ts-node ts-node-dev
+RUN npm install -g ts-node ts-node-dev nodemon
 
 COPY . .
 
