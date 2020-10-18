@@ -9,9 +9,8 @@ import { connection } from './config/database';
 
 console.clear();
 
-(async () => {
-  await connection.create();
-})()
+connection
+  .create()
   .then(() => console.log(`🐘 Connected to PostgreSQL Database`.blue.bold))
   .catch((err) => console.error(err));
 
