@@ -3,17 +3,7 @@ import { app } from '../../../app';
 
 describe('Post Route Handler Test Suite', () => {
   it('Should return 201 for valid inputs', async () => {
-    // User creation
-    const response = await request(app)
-      .post('/signup')
-      .send({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'test',
-      })
-      .expect(201);
-
-    const cookie = response.get('Set-Cookie');
+    const cookie = await global.signup();
 
     // Subreddit Creation
     const subredditName = 'NodeJS';
@@ -53,8 +43,19 @@ Voluptatum id rerum est voluptatem assumenda voluptatum. Et et quidem est nemo n
   });
 
   it('Should return 401 for unauthorized user', async () => {
+    const name = 'NodeJS';
+
     await request(app)
-      .post('/r/NodeJS')
+      .post('/r')
+      .set('Cookie', await global.signup())
+      .send({
+        name,
+        description: `${name} subreddit`,
+      })
+      .expect(201);
+
+    await request(app)
+      .post(`/r/${name}`)
       .set('Cookie', 'notavalidcookie')
       .send({
         title: 'Why you should NodeJS ?',
