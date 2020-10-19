@@ -8,7 +8,7 @@ describe('Create New Subreddit Route Handler Test Suite', () => {
 
     const response = await request(app)
       .post('/r')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send({
         name,
         description,

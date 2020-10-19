@@ -13,7 +13,7 @@ describe('Delete Subreddit Route Handler Test Suite', () => {
   it('Should return 404 for non-existing subreddit', async () => {
     await request(app)
       .delete('/r/NotExists')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send()
       .expect(404);
   });
@@ -24,7 +24,7 @@ describe('Delete Subreddit Route Handler Test Suite', () => {
     // Creating a subreddit with one user
     await request(app)
       .post('/r')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send({
         name,
         description: `${name} subreddit`,
@@ -34,14 +34,17 @@ describe('Delete Subreddit Route Handler Test Suite', () => {
     // Trying to delete subreddit just created with another user
     await request(app)
       .delete(`/r/${name}`)
-      .set('Cookie', await global.signup('test2', 'test2@test.com', 'test2'))
+      .set(
+        'Cookie',
+        (await global.signup('test2', 'test2@test.com', 'test2'))[0],
+      )
       .send()
       .expect(400);
   });
 
   it('Should return 200', async () => {
     const name = 'NodeJS';
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
 
     await request(app)
       .post('/r')

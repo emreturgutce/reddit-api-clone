@@ -5,7 +5,7 @@ import { Subreddit } from '../../../models/subreddit';
 
 describe('Update Subreddit Route Handler Test Suite', () => {
   it('Should return 200 and update for authorized user', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const name = 'NodeJS';
     const description = `${name} subreddit`;
 

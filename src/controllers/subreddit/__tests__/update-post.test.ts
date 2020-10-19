@@ -3,7 +3,7 @@ import { app } from '../../../app';
 
 describe('Update Post Route Handler Test Suite', () => {
   it('Should return 401 for unauthorized user', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const subredditName = 'NodeJS';
 
     await request(app)
@@ -40,7 +40,7 @@ describe('Update Post Route Handler Test Suite', () => {
   });
 
   it('Should return 400 for posts from another subreddit', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const subredditName1 = 'NodeJS';
     const subredditName2 = 'Java';
 
@@ -94,7 +94,7 @@ describe('Update Post Route Handler Test Suite', () => {
   });
 
   it('Should return 400 for non-owner users', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const subredditName = 'NodeJS';
 
     await request(app)
@@ -123,7 +123,10 @@ describe('Update Post Route Handler Test Suite', () => {
 
     await request(app)
       .put(`/r/${subredditName}/${response.body.post.id}`)
-      .set('Cookie', await global.signup('test4', 'test4@test.com', 'test2'))
+      .set(
+        'Cookie',
+        (await global.signup('test4', 'test4@test.com', 'test2'))[0],
+      )
       .send({
         title: 'New NodeJS Title',
         body: 'New NodeJS Body',
@@ -132,7 +135,7 @@ describe('Update Post Route Handler Test Suite', () => {
   });
 
   it('Should return 200 for success', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const subredditName = 'NodeJS';
 
     await request(app)

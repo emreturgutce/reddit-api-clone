@@ -3,7 +3,7 @@ import { app } from '../../../app';
 
 describe('Post Route Handler Test Suite', () => {
   it('Should return 201 for valid inputs', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
 
     // Subreddit Creation
     const subredditName = 'NodeJS';
@@ -47,7 +47,7 @@ Voluptatum id rerum est voluptatem assumenda voluptatum. Et et quidem est nemo n
 
     await request(app)
       .post('/r')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send({
         name,
         description: `${name} subreddit`,

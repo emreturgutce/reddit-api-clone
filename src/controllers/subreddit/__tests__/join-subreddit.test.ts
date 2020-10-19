@@ -3,7 +3,7 @@ import { app } from '../../../app';
 
 describe('Leave Subreddit Route Handler Test Suite', () => {
   it('Should return 200 for authorized user', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const name = 'NodeJS';
 
     await request(app)
@@ -33,7 +33,7 @@ describe('Leave Subreddit Route Handler Test Suite', () => {
   it('Should not join non-existing subreddits', async () => {
     await request(app)
       .get('/r/join/NotExists')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send()
       .expect(404);
   });

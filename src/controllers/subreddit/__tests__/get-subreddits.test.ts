@@ -12,7 +12,7 @@ describe('Get Subreddits Route Handler Test Suite', () => {
   });
 
   it('Should return 200 and return proper subreddits', async () => {
-    const cookie = await global.signup();
+    const cookie = (await global.signup())[0];
     const subreddit1 = { name: 'NodeJS', description: 'NodeJS subreddit' };
     const subreddit2 = { name: 'Java', description: 'Java subreddit' };
     const subreddit3 = { name: 'Go', description: 'Go subreddit' };

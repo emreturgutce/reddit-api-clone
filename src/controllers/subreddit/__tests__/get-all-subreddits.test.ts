@@ -5,7 +5,7 @@ describe('Get All Subreddits Route Handler Test Suite', () => {
   it('Should return 200 for authorized user', async () => {
     await request(app)
       .get('/r/all')
-      .set('Cookie', await global.signup())
+      .set('Cookie', (await global.signup())[0])
       .send()
       .expect(200);
   });
