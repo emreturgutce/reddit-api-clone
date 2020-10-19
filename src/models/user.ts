@@ -31,7 +31,7 @@ class User {
   token?: string;
 
   @Column({ type: 'bytea', nullable: true })
-  avatar?: string;
+  avatar?: Buffer;
 
   @ManyToMany(() => Subreddit, (subreddit) => subreddit.users)
   @JoinTable()
