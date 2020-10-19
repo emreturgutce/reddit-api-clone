@@ -65,9 +65,9 @@ describe('Signup Route Handler Test Suite', () => {
     await request(app)
       .post('/signup')
       .send({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'test',
+        username: 'test3',
+        email: 'test3@test.com',
+        password: 'test3',
       })
       .expect(201);
   });
