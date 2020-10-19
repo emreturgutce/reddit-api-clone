@@ -6,7 +6,11 @@ import { connection } from '../config/database';
 declare global {
   namespace NodeJS {
     interface Global {
-      signup(): Promise<string[]>;
+      signup(
+        username?: string,
+        email?: string,
+        password?: string,
+      ): Promise<string[]>;
     }
   }
 }
@@ -29,11 +33,11 @@ afterEach(async () => {
   await connection.clear();
 });
 
-global.signup = async () => {
-  const email = 'test@test.com';
-  const password = 'password';
-  const username = 'test';
-
+global.signup = async (
+  username: string = 'test',
+  email: string = 'test@test.com',
+  password: string = 'password',
+) => {
   const response = await request(app)
     .post('/signup')
     .send({ username, email, password })
