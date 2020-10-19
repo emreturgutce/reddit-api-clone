@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../app';
 
-describe('Post Route Handler Test Suite', () => {
+describe('Update Post Route Handler Test Suite', () => {
   it('Should return 401 for unauthorized user', async () => {
     const cookie = await global.signup();
     const subredditName = 'NodeJS';
@@ -31,7 +31,7 @@ describe('Post Route Handler Test Suite', () => {
       .expect(201);
 
     await request(app)
-      .put(`/r/${subredditName}/${response.body.post.id}}`)
+      .put(`/r/${subredditName}/${response.body.post.id}`)
       .send({
         title: 'New NodeJS Title',
         body: 'New NodeJS Body',
@@ -84,7 +84,7 @@ describe('Post Route Handler Test Suite', () => {
       .expect(201);
 
     await request(app)
-      .put(`/r/${subredditName2}/${response.body.post.id}}`)
+      .put(`/r/${subredditName2}/${response.body.post.id}`)
       .set('Cookie', cookie)
       .send({
         title: 'New NodeJS Title',
@@ -122,7 +122,7 @@ describe('Post Route Handler Test Suite', () => {
       .expect(201);
 
     await request(app)
-      .put(`/r/${subredditName}/${response.body.post.id}}`)
+      .put(`/r/${subredditName}/${response.body.post.id}`)
       .set('Cookie', await global.signup('test4', 'test4@test.com', 'test2'))
       .send({
         title: 'New NodeJS Title',
@@ -158,7 +158,7 @@ describe('Post Route Handler Test Suite', () => {
         body: 'NodeJS is awesome body',
       })
       .expect(201);
-    console.log(response.body);
+
     await request(app)
       .put(`/r/${subredditName}/${response.body.post.id}`)
       .set('Cookie', cookie)
