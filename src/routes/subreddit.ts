@@ -8,6 +8,7 @@ import { leaveSubredditRouteHandler } from '../controllers/subreddit/leave-subre
 import { validatePost } from '../middlewares/validate-post';
 import { postRouteHandler } from '../controllers/subreddit/post';
 import { updateSubredditRouteHandler } from '../controllers/subreddit/update-subreddit';
+import { deleteSubredditRouteHandler } from '../controllers/subreddit/delete-subreddit';
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.get('/', getSubredditsRouteHandler);
 router.post('/', validateCreateNewSubreddit, createNewSubredditRouteHandler);
 router.get('/all', getAllSubredditsRouteHandler);
 router.put('/:subredditName', updateSubredditRouteHandler);
+router.delete('/:subredditName', deleteSubredditRouteHandler);
 router.get('/:subredditName/join', joinSubredditRouteHandler);
 router.get('/:subredditName/leave', leaveSubredditRouteHandler);
 router.post('/:subredditName', validatePost, postRouteHandler);
