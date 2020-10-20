@@ -23,7 +23,7 @@ class Subreddit {
   description!: string;
 
   @Column({ type: 'bytea', nullable: true })
-  image?: string;
+  image?: Buffer;
 
   @ManyToMany(() => User, (user) => user.subreddits)
   users?: User[];
