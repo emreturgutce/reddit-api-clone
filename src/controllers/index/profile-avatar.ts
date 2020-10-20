@@ -9,7 +9,7 @@ export const profileAvatarRouteHandler = async (
   response: Response,
 ) => {
   const userId = request.user!.id;
-  console.log(userId);
+
   const user = await getRepository(User).findOneOrFail(userId);
 
   const buffer = await sharp(request.file.buffer)
