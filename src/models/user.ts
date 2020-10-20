@@ -3,15 +3,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Post } from './post';
 import { Subreddit } from './subreddit';
+import { UserDetails } from './user-details';
 
 @Entity()
 class User {
@@ -39,6 +42,10 @@ class User {
 
   @OneToMany(() => Post, (post) => post.user)
   posts?: Post[];
+
+  @OneToOne(() => UserDetails)
+  @JoinColumn()
+  details?: UserDetails;
 
   @CreateDateColumn({
     type: 'timestamp',
