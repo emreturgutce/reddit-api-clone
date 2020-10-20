@@ -7,6 +7,7 @@ export const errorHandler = (
   response: Response,
   next: NextFunction,
 ) => {
+  console.error(error);
   if (error instanceof HttpError) {
     return response.status(error.statusCode).json({ message: error.message });
   }
@@ -24,6 +25,13 @@ export const errorHandler = (
     )
   ) {
     return response.status(404).json({ message: 'Subreddit not found' });
+  }
+
+  if (
+    error.name === 'EntityNotFound' &&
+    error.message.match(/Could not find any entity of type "Post" matching/)
+  ) {
+    return response.status(404).json({ message: 'Post not found' });
   }
 
   return response.status(400).json({ message: 'Something went wrong.' });
