@@ -10,6 +10,8 @@ import { postRouteHandler } from '../controllers/subreddit/post';
 import { updateSubredditRouteHandler } from '../controllers/subreddit/update-subreddit';
 import { deleteSubredditRouteHandler } from '../controllers/subreddit/delete-subreddit';
 import { updatePostRouteHandler } from '../controllers/subreddit/update-post';
+import { uploadAvatar } from '../middlewares/upload-avatar';
+import { subredditAvatarRouteHandler } from '../controllers/subreddit/subreddit-avatar';
 
 const router = Router();
 
@@ -18,6 +20,11 @@ router.post('/', validateCreateNewSubreddit, createNewSubredditRouteHandler);
 router.get('/all', getAllSubredditsRouteHandler);
 router.put('/:subredditName', updateSubredditRouteHandler);
 router.delete('/:subredditName', deleteSubredditRouteHandler);
+router.post(
+  '/:subredditName/avatar',
+  uploadAvatar,
+  subredditAvatarRouteHandler,
+);
 router.get('/:subredditName/join', joinSubredditRouteHandler);
 router.get('/:subredditName/leave', leaveSubredditRouteHandler);
 router.post('/:subredditName', validatePost, postRouteHandler);
