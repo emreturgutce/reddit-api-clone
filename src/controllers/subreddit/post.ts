@@ -18,6 +18,7 @@ export const postRouteHandler = async (
 
   const subreddit = await getRepository(Subreddit).findOneOrFail({
     where: { name: request.params.subredditName },
+    select: ['id'],
   });
 
   // Checking if the subreddit that user wants to post to is inside of the user's subreddits
@@ -35,5 +36,19 @@ export const postRouteHandler = async (
 
   await connection.get().manager.save(post);
 
-  response.status(201).json({ post });
+  response.status(201).json({
+    post: {
+      id: post.id,
+      title: post.title,
+      body: post.body,
+      user: {
+        id: post.user.id,
+      },
+      subreddit: {
+        id: post.subreddit.id,
+        name: post.subreddit.name,
+        description: post.subreddit.description,
+      },
+    },
+  });
 };
