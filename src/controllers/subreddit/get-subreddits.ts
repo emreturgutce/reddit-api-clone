@@ -13,5 +13,13 @@ export const getSubredditsRouteHandler = async (
     relations: ['subreddits'],
   });
 
-  response.json({ user });
+  response.json({
+    subreddits: [
+      ...(user?.subreddits?.map((s) => ({
+        id: s.id,
+        name: s.name,
+        description: s.description,
+      })) || []),
+    ],
+  });
 };
