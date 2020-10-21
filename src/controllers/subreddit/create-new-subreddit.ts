@@ -39,7 +39,7 @@ export const createNewSubredditRouteHandler = async (
     description: subreddit.description,
   });
 
-  return response.status(201).json({
+  response.status(201).json({
     subreddit: {
       id: subreddit.id,
       name: subreddit.name,
