@@ -16,11 +16,13 @@ export const updatePostRouteHandler = async (
 
   const subreddit = await getRepository(Subreddit).findOneOrFail({
     where: { name: request.params.subredditName },
+    select: ['id', 'name'],
   });
 
   const post = await getRepository(Post).findOneOrFail({
     where: { id: request.params.postId },
     relations: ['subreddit', 'user'],
+    select: ['id', 'title', 'body', 'subreddit', 'user'],
   });
 
   if (post.subreddit.id !== subreddit.id) {
