@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { connection } from '../../config/database';
 import { redis } from '../../config/redis';
+import { EXPIRATION_SECONDS, KEYS } from '../../constants';
 import { Subreddit } from '../../models/subreddit';
 import { User } from '../../models/user';
 
@@ -11,8 +12,9 @@ interface ISubreddit {
   description: string;
 }
 
-function saveToRedis(subreddit: ISubreddit) {
-  redis.actions.sadd('subreddits', JSON.stringify(subreddit));
+async function saveToRedis(subreddit: ISubreddit) {
+  redis.actions.sadd(KEYS.SUBREDDITS_SET, JSON.stringify(subreddit));
+  await redis.actions.expire(KEYS.SUBREDDITS_SET, EXPIRATION_SECONDS);
 }
 
 export const createNewSubredditRouteHandler = async (
@@ -31,7 +33,7 @@ export const createNewSubredditRouteHandler = async (
 
   await connection.get().manager.save(subreddit);
 
-  saveToRedis({
+  await saveToRedis({
     id: subreddit.id,
     name: subreddit.name,
     description: subreddit.description,
