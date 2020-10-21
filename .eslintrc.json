@@ -27,6 +27,8 @@
     "no-console": "off",
     "no-shadow": "off",
     "operator-linebreak": "off",
-    "indent": "off"
+    "indent": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off"
   }
 }
