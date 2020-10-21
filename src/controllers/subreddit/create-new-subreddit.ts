@@ -20,5 +20,14 @@ export const createNewSubredditRouteHandler = async (
 
   await connection.get().manager.save(subreddit);
 
-  return response.status(201).json({ subreddit });
+  return response.status(201).json({
+    subreddit: {
+      id: subreddit.id,
+      name: subreddit.name,
+      description: subreddit.description,
+      createdBy: {
+        id: subreddit.createdBy.id,
+      },
+    },
+  });
 };
