@@ -13,6 +13,7 @@ export const subredditPostsRouteHandler = async (
 
   const posts = await getRepository(Post).findOneOrFail({
     where: { subreddit: subreddit.id },
+    select: ['id', 'title', 'body'],
   });
 
   response.json({ posts });
