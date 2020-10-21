@@ -2,7 +2,7 @@ import { RedisClient } from 'redis';
 import { promisify } from 'util';
 
 interface RedisActions {
-  sadd: (key: string, val: string) => any;
+  sadd: (key: string, val: string) => boolean;
   smembers: (key: string) => Promise<string[]>;
 }
 
@@ -36,7 +36,7 @@ class Redis {
 
   private onError() {
     return this.client.on('error', (err) => {
-      console.error(err);
+      console.error('err'.red);
     });
   }
 }
