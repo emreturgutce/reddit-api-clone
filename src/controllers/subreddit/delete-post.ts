@@ -12,15 +12,20 @@ export const deletePostRouteHandler = async (
 ) => {
   const userId = request.user!.id;
 
-  const user = await getRepository(User).findOneOrFail(userId);
+  const user = await getRepository(User).findOneOrFail(userId, {
+    select: ['id'],
+  });
 
   const subreddit = await getRepository(Subreddit).findOneOrFail({
     where: { name: request.params.subredditName },
+    relations: ['posts'],
+    select: ['id', 'name', 'posts'],
   });
 
   const post = await getRepository(Post).findOneOrFail({
     where: { id: request.params.postId },
     relations: ['subreddit', 'user'],
+    select: ['subreddit', 'user', 'id'],
   });
 
   if (post.subreddit.id !== subreddit.id) {
