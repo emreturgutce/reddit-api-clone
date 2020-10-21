@@ -14,6 +14,8 @@ connection
   .then(() => console.log(`🐘 Connected to PostgreSQL Database`.blue.bold))
   .catch((err) => console.error(err));
 
+import './config/redis';
+
 import { app } from './app';
 
 const PORT = process.env.PORT || 3000;
