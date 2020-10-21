@@ -29,7 +29,6 @@
     "operator-linebreak": "off",
     "indent": "off",
     "no-underscore-dangle": "off",
-    "no-unused-vars": "off",
     "arrow-body-style": "off"
   }
 }
