@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { getProfileAvatarRouteHandler } from '../controllers/index/get-profile-avatar';
 import { homeRouteHandler } from '../controllers/index/home';
 import { loginRouteHandler } from '../controllers/index/login';
 import { logoutRouteHandler } from '../controllers/index/logout';
@@ -17,6 +18,7 @@ router.get('/', passportJwt, homeRouteHandler);
 router.post('/signup', validateSignup, passportSignup, signupRouteHandler);
 router.post('/login', validateLogin, passportLogin, loginRouteHandler);
 router.get('/logout', passportJwt, logoutRouteHandler);
+router.get('/profile/avatar', passportJwt, getProfileAvatarRouteHandler);
 router.post(
   '/profile/avatar',
   passportJwt,
