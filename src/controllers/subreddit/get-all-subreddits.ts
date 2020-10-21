@@ -6,7 +6,9 @@ export const getAllSubredditsRouteHandler = async (
   request: Request,
   response: Response,
 ) => {
-  const subreddits = await getRepository(Subreddit).find();
+  const subreddits = await getRepository(Subreddit).find({
+    select: ['id', 'name', 'description'],
+  });
 
   response.json({ subreddits });
 };
