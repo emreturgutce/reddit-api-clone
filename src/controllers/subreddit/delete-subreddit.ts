@@ -11,11 +11,14 @@ export const deleteSubredditRouteHandler = async (
 ) => {
   const userId = request.user!.id;
 
-  const user = await getRepository(User).findOneOrFail(userId);
+  const user = await getRepository(User).findOneOrFail(userId, {
+    select: ['id'],
+  });
 
   const subreddit = await getRepository(Subreddit).findOneOrFail({
     where: { name: request.params.subredditName },
     relations: ['createdBy'],
+    select: ['createdBy', 'name'],
   });
 
   if (subreddit.createdBy.id !== user.id) {
