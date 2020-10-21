@@ -4,6 +4,7 @@ import { promisify } from 'util';
 interface RedisActions {
   sadd: (key: string, val: string) => boolean;
   smembers: (key: string) => Promise<string[]>;
+  expire: (key: string, expire: number) => Promise<number>;
 }
 
 class Redis {
@@ -25,6 +26,10 @@ class Redis {
         return smembersAsync(key);
       },
       sadd: (key, val) => this.client.sadd(key, val),
+      expire: (key, expire) => {
+        const expireAsync = promisify(this.client.expire).bind(this.client);
+        return expireAsync(key, expire);
+      },
     };
   }
 
