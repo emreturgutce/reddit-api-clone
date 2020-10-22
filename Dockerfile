@@ -4,10 +4,12 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --only=prod
+RUN yarn install --production=true
 
-RUN npm install -g ts-node ts-node-dev nodemon
+RUN yarn global add ts-node 
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+EXPOSE 3000
+
+CMD ["yarn", "start"]
