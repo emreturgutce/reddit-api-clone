@@ -13,7 +13,7 @@ class Redis {
   readonly actions: RedisActions;
 
   constructor() {
-    this.client = new RedisClient({});
+    this.client = new RedisClient({ host: process.env.REDIS_HOST! });
     this.onConnect();
     this.onError();
     this.actions = this.initializeActions();
@@ -41,7 +41,7 @@ class Redis {
 
   private onError() {
     return this.client.on('error', (err) => {
-      console.error('err'.red);
+      console.error(`${err}`.red);
     });
   }
 }
