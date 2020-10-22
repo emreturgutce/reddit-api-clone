@@ -16,6 +16,7 @@ services:
       - PG_PORT=5432
       - PG_USER=postgres
       - PG_PASSWORD=postgres
+      - REDIS_HOST=redis
     volumes:
       # - /app/node_modules
       - .:/app
