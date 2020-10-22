@@ -11,9 +11,6 @@ services:
       - app
   app:
     build: .
-    restart: on-failure
-    expose:
-      - 3000
     depends_on:
       - postgres-db
       - redis
@@ -26,8 +23,10 @@ services:
       - PG_USER=postgres
       - PG_PASSWORD=postgres
       - REDIS_HOST=redis
+      - ENCRYPTION_KEY=9997a3ce2e20fbeaec94ef330ae862ba345be8223ce49ab107e479b63be72338a4c13871e1ffae70a01c391a085dd964925cf9c35645d0114d99ab2e037fb808aa4db079fdc53953b56aae0b463167d7050ecc79b307e4db5ae872800b2f91c81f3500ff0a43e21ffada949c34423ce7feb8a6e0988d743ab309d7fa124d6da5
+      - ENCRYPTION_ALGORITHM=aes-256-ctr
     volumes:
-      # - /app/node_modules
+      #- /app/node_modules
       - .:/app
   postgres-db:
     image: postgres
