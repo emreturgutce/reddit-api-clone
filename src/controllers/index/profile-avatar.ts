@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import sharp from 'sharp';
-import fs from 'fs';
 import { User } from '../../models/user';
 import { connection } from '../../config/database';
 import { encrypt } from '../../utils/encrypt-decrypt';
@@ -22,11 +21,7 @@ export const profileAvatarRouteHandler = async (
     .jpeg()
     .toBuffer();
 
-  const encrypted = encrypt(buffer);
-
-  fs.writeFileSync('first.txt', encrypted);
-
-  user.avatar = encrypted;
+  user.avatar = encrypt(buffer);
 
   await connection.get().manager.save(user);
 
