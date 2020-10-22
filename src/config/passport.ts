@@ -5,6 +5,7 @@ import { getRepository } from 'typeorm';
 import createHttpError from 'http-errors';
 import { connection } from './database';
 import { User } from '../models/user';
+import { JWT_SECRET, NODE_ENV } from '.';
 
 declare global {
   namespace Express {
@@ -82,10 +83,7 @@ passport.use(
   'jwt',
   new JWTStrategy(
     {
-      secretOrKey:
-        process.env.NODE_ENV === 'development'
-          ? process.env.JWT_SECRET
-          : 'test',
+      secretOrKey: NODE_ENV === 'development' ? JWT_SECRET : 'test',
       jwtFromRequest: ExtractJwt.fromExtractors([(req) => req.session!.token]),
     },
     async (req, done) => {

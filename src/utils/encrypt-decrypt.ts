@@ -1,10 +1,11 @@
 import crypto from 'crypto';
+import { ENCRYPTION_ALGORITHM, ENCRYPTION_KEY } from '../config';
 
-const algorithm = process.env.ENCRYPTION_ALGORITHM!;
+const algorithm = ENCRYPTION_ALGORITHM;
 
 const key = crypto
   .createHash('sha256')
-  .update(String(process.env.ENCRYPTION_KEY || 'MySuperSecretKey'))
+  .update(String(ENCRYPTION_KEY))
   .digest('base64')
   .substr(0, 32);
 

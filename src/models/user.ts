@@ -15,6 +15,7 @@ import jwt from 'jsonwebtoken';
 import { Post } from './post';
 import { Subreddit } from './subreddit';
 import { UserDetails } from './user-details';
+import { JWT_SECRET } from '../config';
 
 @Entity()
 class User {
@@ -68,7 +69,7 @@ class User {
   }
 
   async generateAuthToken() {
-    this.token = jwt.sign({ id: this.id }, process.env.JWT_SECRET!);
+    this.token = jwt.sign({ id: this.id }, JWT_SECRET);
     return this.token;
   }
 

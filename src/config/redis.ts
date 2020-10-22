@@ -1,5 +1,6 @@
 import { RedisClient } from 'redis';
 import { promisify } from 'util';
+import { REDIS_HOST } from '.';
 
 interface RedisActions {
   sadd: (key: string, val: string) => boolean;
@@ -13,7 +14,7 @@ class Redis {
   readonly actions: RedisActions;
 
   constructor() {
-    this.client = new RedisClient({ host: process.env.REDIS_HOST! });
+    this.client = new RedisClient({ host: REDIS_HOST });
     this.onConnect();
     this.onError();
     this.actions = this.initializeActions();

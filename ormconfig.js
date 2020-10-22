@@ -1,16 +1,24 @@
+const {
+    PG_HOST,
+    PG_PORT,
+    PG_USER,
+    PG_PASSWORD,
+    NODE_ENV,
+} = require('./src/config/');
+
 module.exports = {
     type: 'postgres',
-    host: process.env.PG_HOST,
-    port: process.env.PG_PORT,
-    username: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    database: process.env.NODE_ENV === 'development' ?
+    host: PG_HOST,
+    port: PG_PORT,
+    username: PG_USER,
+    password: PG_PASSWORD,
+    database: NODE_ENV === 'development' ?
         'reddit_api_clone' :
-        process.env.NODE_ENV === 'test' ?
+        NODE_ENV === 'test' ?
         'reddit_api_clone_test' :
         undefined,
     synchronize: true,
-    logging: process.env.NODE_ENV === 'development',
+    logging: NODE_ENV === 'development',
     entities: ['src/models/**/*.ts'],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
